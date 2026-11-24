@@ -1,0 +1,77 @@
+/**:
+  ros__parameters:
+    # ---------------------------------------------------------------- vehicle
+    vehicle:
+      length: 4.5136               # bumper to bumper [m]
+      width: 2.0068                # including mirrors [m]
+      wheel_base: 2.831
+      max_steer_angle: 0.70        # [rad]
+      vehicle_shape_margin: 0.05   # same as freespace_planner, added once
+
+    # ------------------------------------------------------------------- grid
+    grid:
+      expected_frame: "map"
+      expected_resolution: 0.3
+      resolution_tolerance: 0.001
+      expected_rate_hz: 10.0
+      rate_tolerance: 0.2
+      obstacle_threshold: 100
+      coverage_fail: 0.75
+      coverage_pass: 0.95
+      unknown_fail: 0.20
+      unknown_pass: 0.05
+
+    # ------------------------------------------------------------------- goal
+    goal:
+      angle_tolerance_pass_deg: 6.0
+      angle_tolerance_warn_deg: 18.0
+      require_in_parking_space: true
+      rect_samples_long: 23
+      rect_samples_lat: 13
+
+    # ------------------------------------------------------------------ start
+    start:
+      route_gap_fail: 3.0
+      route_gap_pass: 1.0
+      odom_rate_min: 5.0
+      odom_rate_max: 20.0
+
+    # --------------------------------------------------------------- scenario
+    scenario:
+      enabled: true
+      required: "Parking"
+      ratio_fail: 0.30
+      ratio_pass: 0.90
+
+    # ----------------------------------------------------------- connectivity
+    connectivity:
+      edt_margin_pass: 0.10
+      edt_margin_warn: -0.05
+      strict_rect_connectivity: false
+      connectivity_neighbors: 8
+
+    # ---------------------------------------------------------- parking spaces
+    parking_spaces:
+      enabled: true
+      check_mode: "center"
+      multi_pose_count: 3
+      width_margin_fail: 0.10
+      width_margin_pass: 0.20
+      length_margin_fail: 0.05
+      length_margin_pass: 0.20
+      parkable_ratio_fail: 0.50
+      parkable_ratio_pass: 0.90
+
+    # --------------------------------------------------------------------- tf
+    tf:
+      global_frame: "map"
+      base_frame: "base_link"
+      timeout_sec: 0.1
+      missing_is_fail: false
+
+    # ------------------------------------------------------------------ misc
+    lanelet2_map_path: "/home/cn/autoware_data/maps/Town04/lanelet2_map.osm"
+    update_rate: 5.0
+    debounce_frames: 3
+    publish_marker: true
+    enable_service: true

@@ -1,0 +1,50 @@
+/**:
+  ros__parameters:
+    # ---------------------------------------------------------------- vehicle
+    vehicle:
+      wheel_base: 2.831
+      max_steer_angle: 0.70
+      vehicle_length: 4.5136
+      vehicle_width: 2.0068
+      rear_overhang: 1.1
+
+    # ------------------------------------------------------- hard constraints
+    constraints:
+      min_point_interval: 0.01
+      max_point_interval: 2.0
+      max_curvature: 0.398          # 1/R_min, R_min = L / tan(delta_max)
+      max_steer_angle_rate: 0.3     # rad/s
+      max_velocity: 1.4             # m/s
+      terminal_velocity: 0.05       # m/s
+      min_points: 5
+      max_relative_angle: 0.5       # rad
+      occupancy_cost_threshold: 50
+
+    # ------------------------------------------------------------- comfort
+    comfort:
+      max_lateral_acc: 2.0
+      max_lateral_jerk: 1.5
+      max_longitudinal_acc: 3.0
+      max_longitudinal_jerk: 2.0
+      max_switch_count: 4
+
+    # ---------------------------------------------------------------- goal
+    goal:
+      enabled: true
+      x: 273.215
+      y: 236.173
+      yaw: 3.14159                  # 180.2 deg
+      tolerance_lat: 0.3
+      tolerance_lon: 0.5
+      tolerance_yaw: 0.1745         # 10 deg
+
+    # ------------------------------------------------------------- scoring
+    scoring:
+      min_score: 70.0
+
+    # ---------------------------------------------------------------- mode
+    evaluation_mode: "single"       # single | cumulative
+    enable_occupancy_check: true
+    enable_visualization: true
+    publish_rate: 10.0
+    require_parking_scenario: false

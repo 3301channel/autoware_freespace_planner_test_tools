@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>parking_trajectory_evaluator</name>
+  <version>0.1.0</version>
+  <description>
+    Read-only evaluator for the parking trajectory produced by
+    autoware_freespace_planner. It checks kinematic feasibility, safety against
+    the occupancy grid and control readiness, then reports a score and a clear
+    is_control_ready verdict.
+  </description>
+  <maintainer email="cn@example.com">cn</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>diagnostic_msgs</depend>
+  <depend>visualization_msgs</depend>
+
+  <depend>autoware_planning_msgs</depend>
+  <depend>autoware_internal_planning_msgs</depend>
+
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

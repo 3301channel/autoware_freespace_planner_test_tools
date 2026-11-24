@@ -1,0 +1,37 @@
+<launch>
+  <!--
+    Parking trajectory evaluator.
+
+    The occupancy grid source is configurable because freespace_planner may
+    consume costmap_generator output or a dedicated occupancy generator.
+  -->
+
+  <arg name="params_file"
+       default="$(find-pkg-share parking_trajectory_evaluator)/config/parking_trajectory_evaluator.param.yaml"/>
+
+  <arg name="trajectory_topic"
+       default="/planning/scenario_planning/parking/trajectory"/>
+  <arg name="odometry_topic" default="/localization/kinematic_state"/>
+  <arg name="scenario_topic" default="/planning/scenario_planning/scenario"/>
+  <arg name="occupancy_grid_topic"
+       default="/planning/scenario_planning/parking/costmap_generator/occupancy_grid"/>
+  <arg name="use_sim_time" default="false"/>
+
+  <node pkg="parking_trajectory_evaluator"
+        exec="parking_trajectory_evaluator_node"
+        name="parking_trajectory_evaluator"
+        output="screen">
+
+    <remap from="~/input/trajectory" to="$(var trajectory_topic)"/>
+    <remap from="~/input/odometry" to="$(var odometry_topic)"/>
+    <remap from="~/input/scenario" to="$(var scenario_topic)"/>
+    <remap from="~/input/occupancy_grid" to="$(var occupancy_grid_topic)"/>
+
+    <remap from="~/output/report" to="/planning/evaluation/parking_trajectory_report"/>
+    <remap from="~/output/marker" to="/planning/evaluation/parking_trajectory_marker"/>
+    <remap from="~/get_report" to="/planning/evaluation/get_parking_report"/>
+
+    <param from="$(var params_file)"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+</launch>

@@ -1,0 +1,45 @@
+<launch>
+  <!--
+    Parking input evaluator.
+
+    The occupancy grid source is configurable on purpose: freespace_planner may
+    consume the grid either from costmap_generator or directly from a dedicated
+    occupancy generator. Override `occupancy_grid_topic` to match the planner.
+  -->
+
+  <arg name="params_file"
+       default="$(find-pkg-share parking_input_evaluator)/config/parking_input_evaluator.param.yaml"/>
+
+  <!-- Occupancy grid source. Change this when the planner no longer subscribes
+       to costmap_generator, e.g. a node that generates the grid directly. -->
+  <arg name="occupancy_grid_topic"
+       default="/planning/scenario_planning/parking/costmap_generator/occupancy_grid"
+       description="occupancy grid actually consumed by freespace_planner"/>
+
+  <arg name="route_topic" default="/planning/mission_planning/route"/>
+  <arg name="odometry_topic" default="/localization/kinematic_state"/>
+  <arg name="scenario_topic" default="/planning/scenario_planning/scenario"/>
+
+  <arg name="lanelet2_map_path"
+       default="/home/cn/autoware_data/maps/Town04/lanelet2_map.osm"/>
+  <arg name="use_sim_time" default="false"/>
+
+  <node pkg="parking_input_evaluator"
+        exec="parking_input_evaluator_node"
+        name="parking_input_evaluator"
+        output="screen">
+
+    <remap from="~/input/occupancy_grid" to="$(var occupancy_grid_topic)"/>
+    <remap from="~/input/route" to="$(var route_topic)"/>
+    <remap from="~/input/odometry" to="$(var odometry_topic)"/>
+    <remap from="~/input/scenario" to="$(var scenario_topic)"/>
+
+    <remap from="~/output/report" to="/planning/evaluation/parking_input_report"/>
+    <remap from="~/output/marker" to="/planning/evaluation/parking_input_marker"/>
+    <remap from="~/get_report" to="/planning/evaluation/get_parking_input_report"/>
+
+    <param from="$(var params_file)"/>
+    <param name="lanelet2_map_path" value="$(var lanelet2_map_path)"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+</launch>
